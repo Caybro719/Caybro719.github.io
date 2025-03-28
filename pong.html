@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="refresh" content="3600">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <style>
+         nav
+    
+        a {
+          color: rgb(0, 0, 0);
+         }
+    
+        a:hover {
+             color: rgb(255, 174, 0)
+        }
+        
+        /* Styling for game canvas */
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="playMusic()">Play Music</button>
+    <button onclick="stopMusic()">Stop Music</button>
+    
+      <canvas id="pongCanvas" width="800" height="400"></canvas>
+     <script src="pong.js"></script>
+
+     <script>
+        const audio = new Audio('music.mp3')
+
+        function playMusic() {
+            audio.play()
+        }
+
+        function stopMusic() {
+            audio.pause()
+        }
+
+
+
+
+    
+    
+     
+        </script>
+</body>
+
+<div class="links" id="footer">
+    <a href="file:///Users/caybro/kuma/multiplayer.html">Back to Games Homepage</a>
+</div>
+
+</html> 

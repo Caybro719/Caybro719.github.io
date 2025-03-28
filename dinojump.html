@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="refresh" content="3600">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dino Jump Game</title>
+  <link rel="stylesheet" href="dinojump.css">
+</head>
+<body>
+  <div id="homeScreen">
+    <h1>Dino Jump</h1>
+    
+    <!-- Player name input and start game button -->
+    <input type="text" id="playerName" placeholder="Enter your name" />
+    <button id="startButton" onclick="startGame()">Start Game</button>
+
+    <div id="leaderboard">
+      <h2>Leaderboard</h2>
+      <ul id="scoreList"></ul>
+    </div>
+  </div>
+  
+  <div id="gameContainer">
+    <div id="dino"></div>
+    <div id="obstacle"></div>
+    <div id="score">Score: 0</div>
+  </div>
+
+  <script src="dinojump.js"></script>
+  <script>
+    document.getElementById('startButton').addEventListener('click', startGame);
+    
+    // Global variables
+    let currentScore = 0;
+    let playerName = '';
+    
+    // Load leaderboard and scores from localStorage
+    function loadLeaderboard() {
+      const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+      const scoreListElement = document.getElementById('scoreList');
+      
+      // Clear the existing list
+      scoreListElement.innerHTML = '';
+      
+      leaderboard.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.name}: ${entry.score}`;
+        scoreListElement.appendChild(li);
+      });
+    }
+
+    // Save score and name to leaderboard
+    function saveScore(name, score) {
+      const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+      leaderboard.push({ name, score });
+      leaderboard.sort((a, b) => b.score - a.score); // Sort by score descending
+      localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+      
+      // Reload leaderboard display
+      loadLeaderboard();
+    }
+
+    // Start the game
+    function startGame() {
+      // Get player name
+      playerName = document.getElementById('playerName').value.trim();
+      
+      if (!playerName) {
+        alert('Please enter your name!');
+        return;
+      }
+      
+      // Hide home screen and start the game
+      document.getElementById('homeScreen').style.display = 'none';
+      document.getElementById('gameContainer').style.display = 'block';
+      
+      // Initialize game (score, game logic, etc.)
+      currentScore = 0;
+      document.getElementById('score').textContent = `Score: ${currentScore}`;
+      
+      // Start the actual game (placeholder for your actual game logic)
+      runGame();
+    }
+
+    // Placeholder for actual game logic (for example, score update when the player jumps or avoids obstacles)
+    function runGame() {
+      setInterval(() => {
+        currentScore++; // Increment score every interval as an example (this could be game-specific logic)
+        document.getElementById('score').textContent = `Score: ${currentScore}`;
+      }, 1000);
+    }
+
+    // When the game ends (for example, when the player loses)
+    function endGame() {
+      // Save score to leaderboard
+      saveScore(playerName, currentScore);
+      
+      // Show home screen again
+      document.getElementById('homeScreen').style.display = 'block';
+      document.getElementById('gameContainer').style.display = 'none';
+    }
+
+    // Load the leaderboard when the page is loaded
+    window.onload = loadLeaderboard;
+  </script>
+</body>
+</html>
